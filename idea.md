@@ -1,5 +1,5 @@
 
-Cache
+Caching.Cache
 - Get, Put, Remove operation
 - TTL per key and variable
 - Eviction Policy
@@ -21,9 +21,9 @@ Entities
 
 - Datastore (key, value store)
 - Eviction policy
-- Cache (datastore, eviction_policy) (One segment of cache)
+- Caching.Cache (datastore, eviction_policy) (One segment of cache)
 - CacheManager (holds segments and eviction_policy) - orchestration
-- ExpiryTracker (Background thread)
+- Caching.ExpiryTracker (Background thread)
 
 
 Concurrency
