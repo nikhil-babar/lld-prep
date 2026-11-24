@@ -1,4 +1,11 @@
 package Observers.Task;
 
-public class TaskObserver {
+import Models.Task;
+import Models.TaskMetadata;
+import Models.User;
+
+import java.util.Optional;
+
+public interface TaskObserver {
+    void listen(Task task, Task beforeUpdate, User updatedBy);
 }

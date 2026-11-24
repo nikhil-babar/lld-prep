@@ -1,4 +1,6 @@
 package Models.Views;
 
-public class UserView {
+import Models.Calender;
+
+public record UserView (String id, String name, String email){
 }

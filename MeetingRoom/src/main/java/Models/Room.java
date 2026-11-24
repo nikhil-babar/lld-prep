@@ -1,4 +1,3 @@
 package Models;
 
-public class Room {
-}
+public record Room (String id, String name, Slot workingHours) {}

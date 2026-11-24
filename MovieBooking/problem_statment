@@ -1,0 +1,115 @@
+Machine Coding Round: Task Management System
+
+Duration: 90 minutes | Language: any | Storage: in-memory only (no DB, UI or framework)
+
+Context
+
+You are building the backend of an internal task tracker for a small engineering team. Users create tasks, assign them, move them through a workflow, and look them up in different ways. A driver (main or tests) is enough for input and output. No REST layer is needed.
+
+Functional requirements
+
+1. Users
+
+Register a user with an id and a name.
+Look up a user by id.
+
+2. Tasks
+
+Fields: id, title, description, creator, assignee (optional at creation), priority, due date, status, labels, created and updated timestamps.
+Priority: LOW, MEDIUM, HIGH, CRITICAL.
+Status: TODO, IN_PROGRESS, IN_REVIEW, DONE. A new task starts in TODO.
+Operations: create, delete, update (title, description, priority, due date, labels), assign or reassign.
+The due date at creation cannot be in the past.
+
+3. Status workflow
+
+Allowed transitions:
+TODO → IN_PROGRESS
+IN_PROGRESS → IN_REVIEW
+IN_REVIEW → IN_PROGRESS
+IN_REVIEW → DONE
+Every other transition is rejected with a clear error.
+A task must have an assignee before it can leave TODO.
+
+4. Subtasks
+
+A task can have subtasks, one level deep only (a subtask cannot have subtasks).
+A parent cannot move to DONE until all its subtasks are DONE.
+Deleting a parent deletes its subtasks.
+
+5. Search and listing
+
+Filter by any combination of assignee, status, priority and label.
+Sort by due date, priority or creation time, ascending or descending.
+List overdue tasks (past due date and not DONE).
+
+6. Activity history
+
+Record every change: creation, assignment, status change and field updates.
+Each entry holds who made the change, the field, the old value, the new value and the timestamp.
+Fetch a task’s history in chronological order.
+
+7. Notifications
+
+The assignee is notified when a task is assigned to them or when its status changes.
+The creator is notified when the task reaches DONE.
+Printing to the console is enough for delivery.
+Non-functional requirements
+Concurrency: several users may update the same task at the same time. Simultaneous status changes or reassignments must never corrupt state or allow an illegal transition.
+Extensibility: a new status, transition rule, filter, sort criterion or notification channel should need minimal changes to existing code.
+Validation: invalid input (unknown user or task, illegal transition, past due date) must produce a meaningful error, never a silent failure.
+Performance: lookup by task id must be O(1). For filtered listing a scan is acceptable, but be ready to say how you would speed it up.
+Code quality: clear separation of responsibilities, readable naming, no business logic in the driver, no global mutable state.
+Sample scenario
+registerUser(u1, "Asha")
+registerUser(u2, "Ravi")
+
+createTask(by=u1, title="Fix login bug", priority=HIGH, due=2026-11-05)
+  -> T1 created (TODO, unassigned)
+
+changeStatus(T1, IN_PROGRESS, by=u1)
+  -> ERROR: T1 has no assignee
+
+assign(T1, u2, by=u1)
+  -> [Notify u2] T1 assigned to you
+
+changeStatus(T1, IN_PROGRESS, by=u2)
+  -> [Notify u2] T1: TODO -> IN_PROGRESS
+
+changeStatus(T1, DONE, by=u2)
+  -> ERROR: Invalid transition IN_PROGRESS -> DONE
+
+addSubtask(T1, title="Write tests")
+  -> T1.1 created (TODO)
+
+changeStatus(T1, IN_REVIEW, by=u2)
+  -> [Notify u2] T1: IN_PROGRESS -> IN_REVIEW
+
+changeStatus(T1, DONE, by=u2)
+  -> ERROR: T1 has incomplete subtasks (T1.1)
+
+listTasks(assignee=u2, status=IN_REVIEW, sortBy=DUE_DATE, order=ASC)
+  -> [T1]
+
+getHistory(T1)
+  -> created by u1 | assignee: null -> u2 by u1 | status: TODO -> IN_PROGRESS by u2 | status: IN_PROGRESS -> IN_REVIEW by u2
+Deliverables
+Working, runnable code.
+A driver that demonstrates:
+the happy path
+an invalid transition being rejected
+the subtask-completion rule
+filtering and sorting
+history output
+one concurrent-update scenario
+A short explanation of your design choices and what you would add next.
+Out of scope
+
+Authentication, persistence, REST APIs, recurring tasks, comments and attachments.
+
+How it is evaluated
+Does it run and cover the requirements correctly?
+Is the code readable, modular and easy to extend?
+Is it correct under concurrent access?
+Are edge cases and errors handled?
+Does the demo cover the key scenarios?

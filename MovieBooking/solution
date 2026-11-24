@@ -1,0 +1,36 @@
+
+
+Entities
+    User
+    Task
+        SubTask
+        Audit
+        Status
+
+Actions
+
+
+Requirements
+    - Adding new status and new sort criteria is less code change
+
+
+
+
+Services
+    - TaskSearchService
+        - Search using different filters
+
+    - TaskInventory
+        - Transition Status
+        - Concurrent update to task
+
+    - AuditService
+
+    - UserService
+        - CREATE User
+
+    - TaskObserver
+        - User
+        - AuditService
+        - Reporter and Assignee get notifications
+

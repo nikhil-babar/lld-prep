@@ -1,4 +1,6 @@
 package Models.Requests;
 
-public class CreateRoomRequest {
+import Models.DateRange;
+
+public record CreateRoomRequest (String name, int capacity, DateRange workingHours){
 }

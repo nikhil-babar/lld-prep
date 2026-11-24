@@ -6,13 +6,13 @@ import lombok.NonNull;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Builder
 @Getter
-public class TaskData {
-    @NonNull  private String title;
-    @NonNull private String description;
-    @NonNull private List<String> labels;
-    private LocalDateTime dueDate;
+public class TaskMetadata {
+    @NonNull  private final String title;
+    @NonNull private final String description;
+    @NonNull private final List<String> labels;
+    private final LocalDateTime dueDate;
+    private final User assignee;
 }

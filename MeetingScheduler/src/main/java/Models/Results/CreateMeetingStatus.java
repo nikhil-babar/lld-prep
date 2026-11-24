@@ -1,4 +1,7 @@
 package Models.Results;
 
-public class CreateMeetingStatus {
+public enum CreateMeetingStatus {
+    COMPLETED,
+    ATTENDEE_OVERLAPPING,
+    SLOT_ALREADY_BOOKED
 }

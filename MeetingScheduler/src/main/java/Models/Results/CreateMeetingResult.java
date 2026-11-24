@@ -1,4 +1,6 @@
 package Models.Results;
 
-public class CreateMeetingResult {
+import Models.Views.MeetingView;
+
+public record CreateMeetingResult(CreateMeetingStatus status, MeetingView meetingView) {
 }

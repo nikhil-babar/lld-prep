@@ -1,10 +1,12 @@
-package Observers.Subject;
+package Services.TaskInventory;
 
 import Models.Task;
-import Models.TaskData;
+import Observers.Task.TaskObserver;
 
 import java.util.Optional;
 
 public interface TaskSubject {
-    void notify(Task task, Optional<Task> previousState);
+    void attach(TaskObserver observer);
+
+    void detach(TaskObserver observer);
 }

@@ -1,0 +1,17 @@
+## 1. Parking Lot
+
+**Statement:** Design a multi-level parking lot system that parks vehicles, issues tickets, and charges on exit.
+
+**Requirements**
+1. Lot has multiple floors; each floor has multiple spots of different sizes (e.g., motorcycle, compact, large). EV-charging spots are flagged separately.
+2. Vehicle types: motorcycle, car, bus/truck. A vehicle may only use a spot that fits it (larger spots may host smaller vehicles; buses may need multiple adjacent or one large spot, as you define).
+3. Multiple entry and exit gates operate simultaneously.
+4. `park(vehicle)` assigns a spot and returns a ticket (ticket id, vehicle, spot, floor, entry time). Return a clear failure if the lot is full.
+5. `unpark(ticket)` frees the spot, computes the fee from duration and vehicle type, and records payment (cash/card/UPI).
+6. Pricing is hourly with a different rate per vehicle type; rate card must be changeable without touching parking logic.
+7. Query availability per floor per spot type at any time (display board).
+8. Lost ticket / invalid ticket / double exit must be handled.
+
+**Constraints:** two gates must never assign the same spot; spot-assignment rule (nearest to entry, lowest floor first, etc.) should be changeable.
+
+**Follow-ups:** reserved/handicap spots, monthly pass holders, peak-hour pricing, spot out-of-service, max stay alert.

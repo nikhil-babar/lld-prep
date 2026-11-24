@@ -1,4 +1,8 @@
 package Enums;
 
-public class UserNotificationType {
+public enum UserNotificationType {
+    ASSIGNED,
+    UNASSIGNED,
+    CHANGED_METADATA,
+    CREATED
 }
